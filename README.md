@@ -36,7 +36,7 @@ Saves the domain entity and its corresponding event in the database within the s
 
 *Note: Alternatively, this pattern can be implemented without polling via Log-Based CDC using Debezium with Kafka Connect, or embedded within Spring via `debezium-embedded` (`SmartLifecycle`).*
 
-![Implementation specification](.docs/transactional_outbox_pattern.md)
+[Implementation specification](.docs/transactional_outbox_pattern.md)
 
 ---
 
