@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: densha_eda_express
