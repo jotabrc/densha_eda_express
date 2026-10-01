@@ -65,6 +65,8 @@ Executes a distributed transaction across multiple microservices where each serv
 
 *Note: For workflows with high complexity or many branching steps, **Saga Orchestration** can be used instead to centralize workflow state management.*
 
+[Implementation specification](.docs/saga_choreography.md)
+
 ---
 
 ## Command Query Responsibility Segregation (CQRS)
@@ -88,6 +90,8 @@ Separates write (Command) operations from read (Query) operations. In distribute
 4. Query services read directly from the Read Store.
 
 *Note: CQRS can also be implemented at the code level within a single database by separating Write Models (Domain Entities/Aggregates) from Read Models (DTO Projections/Direct DB queries) without needing asynchronous event synchronization.*
+
+[Implementation specification](.docs/command_query_responsibility_segregation_cqrs_pattern.md)
 
 ---
 
