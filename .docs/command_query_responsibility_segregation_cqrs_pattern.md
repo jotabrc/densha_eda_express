@@ -17,4 +17,4 @@ Data can have eventual consistency, which means that retrieved data might not be
 
 ## Diagram
 
-![](images/densh_eda_express_command_query_responsibility_segregation.png)
+![](images/densha_eda_express_command_query_responsibility_segregation.png)
