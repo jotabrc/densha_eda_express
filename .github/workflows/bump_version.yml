@@ -1,0 +1,62 @@
+name: Auto Increment Version
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Process Version, Tag and Bump
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          COMMIT_MSG_LOWER=$(echo "$COMMIT_MSG" | tr '[:upper:]' '[:lower:]')
+
+          echo "Mensagem do commit: $COMMIT_MSG"
+
+          if [[ "$COMMIT_MSG_LOWER" =~ ^docs? ]]; then
+            echo "Commit de documentação (doc/docs) detectado. Omitindo incremento de versão."
+            exit 0
+          fi
+
+          # 1. Captura a versão ATUAL do pom.xml (antes do bump)
+          CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Versão atual para a Tag: $CURRENT_VERSION"
+
+          # 2. Configura o Git e cria a tag apontando para o commit atual
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v$CURRENT_VERSION"
+
+          # 3. Incrementa a versão no pom.xml para o próximo ciclo
+          if [[ "$COMMIT_MSG_LOWER" =~ ^major ]]; then
+            echo "Incrementando MAJOR (X.0.0)..."
+            mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.nextMajorVersion}.0.0' versions:commit
+          else
+            echo "Incrementando MINOR (X.Y+1.0)..."
+            mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}.0' versions:commit
+          fi
+
+          # 4. Captura a nova versão para a mensagem do commit de bump
+          NEW_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+          # 5. Commita o pom.xml com a nova versão e envia as alterações e a tag
+          git add pom.xml
+          git commit -m "chore(release): bump version to $NEW_VERSION [skip ci]"
+          git push origin master
+          git push origin "v$CURRENT_VERSION"
