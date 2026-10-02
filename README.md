@@ -113,3 +113,5 @@ Offloads failed events from the main topic to dedicated retry topics with expone
 2. The event is republished to a designated retry topic with a configured backoff delay.
 3. Main topic continues processing subsequent events without blocking.
 4. If retry attempts are exhausted, the event is moved to the DLQ topic (or a failure table) for manual inspection or deferred re-processing.
+
+[Implementation specification](.docs/non-blocking_retry_and_dead_letter_queue_dlq)
