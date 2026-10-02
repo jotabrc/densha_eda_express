@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.github.jotabrc</groupId>
     <artifactId>densha_eda_express</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <name>densha_eda_express</name>
     <description>densha_eda_express</description>
     <url/>
