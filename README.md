@@ -15,7 +15,7 @@ Saves the domain entity and its corresponding event in the database within the s
 **Trade-offs**: 
 * **Polling Approach**: Requires a scheduler that periodically polls the database, acquires row locks, and performs update/delete operations, adding I/O overhead to the database.
 * **Log-Based CDC (Debezium)**: Eliminates polling overhead but introduces additional infrastructure complexity (Kafka Connect, WAL monitoring).
-* **Consumer Idempotency**: Guarantees *at-least-once* delivery, requiring consumers to implement idempotency to handle duplicate events safely.
+* **Consumer Idempotence**: Guarantees *at-least-once* delivery, requiring consumers to implement idempotency to handle duplicate events safely.
 
 **Requirements**: 
 * Entity table

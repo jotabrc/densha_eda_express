@@ -13,8 +13,8 @@ Messages from the retry topics that fail processing are either send to the next 
 5. Consumer listening to `order.confirmed.retry.1.0` pulls new messages
 6. If processing fails again it can either publish to the next retry configured topic or save it in the DLQ event table for manual intervention
 
-## Idempotency
-Each consumer must have an idempotency key to prevent invalid reprocessing, such as generating an unique identifier in the entity that can validate if the event has been processed.
+## Idempotence
+Each consumer must have an idempotence key to prevent invalid reprocessing, such as generating an unique identifier in the entity that can validate if the event has been processed.
 
 ## DLQ reprocessing
 If the DLQ reprocessing service it triggered via an automatic job, them it's required
