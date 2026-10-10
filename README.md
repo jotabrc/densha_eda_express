@@ -121,5 +121,5 @@ Offloads failed events from the main topic to dedicated retry topics with expone
 
 # Workflow diagram
 
-![](images/densha_eda_express_workflow.png)
+![](.docs/images/densha_eda_express_workflow.png)
 
