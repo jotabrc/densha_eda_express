@@ -1,3 +1,98 @@
+spring.application.name: densha_eda_express
+server.port: 8090
+spring.servlet.multipart: { max-file-size: 2097152, max-request-size: 3145728 }
+
+spring.kafka.producer.bootstrap-servers: localhost:9092,localhost:9094,localhost:9096
+spring.kafka.producer.acks: all
+spring.kafka.producer.properties.delivery.timeout.ms: 120000
+spring.kafka.producer.properties.linger.ms: 0
+spring.kafka.producer.properties.request.timeout.ms: 30000
+spring.kafka.producer.transactional-id-prefix: densha_eda_express-${random.value}-
+spring.kafka.producer.properties.max.in.flight.requests.per.connection: 5
+spring.kafka.producer.properties.retries: 2147483647
+
+spring.kafka.consumer.bootstrap-servers: localhost:9092,localhost:9094,localhost:9096
+spring.kafka.consumer.properties.spring.json.trusted.packages: *
+spring.kafka.consumer.group-id: densha_eda_express
+
+densha:
+  kafka:
+    error-handler:
+      classifications:
+        org.springframework.dao.DataAccessException: true
+        java.util.concurrent.TimeoutException: true
+        java.lang.IllegalArgumentException: false
+        java.lang.IllegalStateException: false
+        java.lang.NullPointerException: false
+
+---
 spring:
-  application:
-    name: densha_eda_express
+  config:
+    activate:
+      on-profile: local-postgres
+
+  datasource:
+    url: jdbc:postgresql://${DENSHA_DB_URL}:${DENSHA_DB_PORT}/${DENSHA_DB_NAME}?sslmode=${DENSHA_SSL_MODE}&sslrootcert=${DENSHA_SSL_ROOT_CERT}&sslcert=${DENSHA_DB_SSL_CERT}&sslkey=${DENSHA_DB_SSL_KEY}
+    username: ${DENSHA_APP_DB_USER}
+    password: ${DENSHA_APP_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${DENSHA_DB_URL}:${DENSHA_DB_PORT}/${DENSHA_DB_NAME}?sslmode=${DENSHA_SSL_MODE}&sslrootcert=${DENSHA_SSL_ROOT_CERT}&sslcert=${DENSHA_DB_SSL_CERT}&sslkey=${DENSHA_DB_SSL_KEY}
+    user: ${DENSHA_FLYWAY_DB_USER}
+    password: ${DENSHA_FLYWAY_DB_PASSWORD}
+    schemas: public
+    baseline-on-migrate: true
+    locations:
+      - classpath:db/migration/default
+
+logging:
+  level:
+    org.flywaydb: TRACE
+    org.hibernate.SQL: TRACE
+    io.github.jotabrc.densha_eda_express: TRACE
+    spring.kafka: TRACE
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration/default
+
+logging:
+  level:
+    org.flywaydb: TRACE
+    org.hibernate.SQL: TRACE
+    io.github.jotabrc.densha_eda_express: TRACE
+    spring.kafka: TRACE
