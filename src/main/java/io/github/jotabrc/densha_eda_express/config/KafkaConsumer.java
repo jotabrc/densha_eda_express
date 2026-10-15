@@ -82,7 +82,7 @@ public class KafkaConsumer {
                 (consumerRecord, exception) -> {
                     int attempt = getRetryAttempt(consumerRecord);
 
-                    if (attempt > 3) {
+                    if (attempt > maxAttempts) {
                         return new TopicPartition(consumerRecord.topic() + "-dlq", consumerRecord.partition());
                     } else {
                         return new TopicPartition(consumerRecord.topic() + "-retry", consumerRecord.partition());

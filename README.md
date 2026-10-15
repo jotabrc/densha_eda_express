@@ -122,3 +122,7 @@ Offloads failed events from the main topic to dedicated retry topics with expone
 # Workflow diagram
 
 ![](.docs/images/densha_eda_express__workflow.png)
+
+---
+
+Domain entities and objects will have oversimplified field members for the sake of simplicity, our focus is on the EDA patterns.
