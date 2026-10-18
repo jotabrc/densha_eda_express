@@ -19,6 +19,8 @@ public class KafkaTopic {
     public static final String TOPIC_PAYMENT_FAILED_RETRY = "payment.failed.0-retry";
     public static final String TOPIC_PAYMENT_FULFILLED = "payment.fulfilled.0";
     public static final String TOPIC_PAYMENT_FULFILLED_RETRY = "payment.fulfilled.0-retry";
+    public static final String TOPIC_PAYMENT_REFUNDED = "payment.refunded.0";
+    public static final String TOPIC_PAYMENT_REFUNDED_RETRY = "payment.refunded.0-retry";
     public static final String TOPIC_SHIPPING_SENT = "shipping.sent.0";
     public static final String TOPIC_SHIPPING_SENT_RETRY = "shipping.sent.0-retry";
     public static final String TOPIC_NOTIFICATION_NOTIFIED = "notification.notified.0";
@@ -82,6 +84,16 @@ public class KafkaTopic {
     @Bean
     NewTopic paymentFulfilledRetry() {
         return new NewTopic(TOPIC_PAYMENT_FULFILLED_RETRY, 3, (short) 2);
+    }
+
+    @Bean
+    NewTopic paymentRefunded() {
+        return new NewTopic(TOPIC_PAYMENT_REFUNDED, 3, (short) 2);
+    }
+
+    @Bean
+    NewTopic paymentRefundedRetry() {
+        return new NewTopic(TOPIC_PAYMENT_REFUNDED_RETRY, 3, (short) 2);
     }
 
     @Bean

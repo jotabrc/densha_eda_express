@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,13 @@ public class OutboxPublisherServiceImpl implements OutboxPublisherService {
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
+        Outbox outbox = outboxService.create(event, properties);
+        this.send(outbox);
+        return outboxService.save(outbox);
+    }
+
+    @Override
+    public <T extends BaseEntity> Outbox publish(Map<OutboxKey, Object> properties, T event) {
         Outbox outbox = outboxService.create(event, properties);
         this.send(outbox);
         return outboxService.save(outbox);
@@ -57,9 +66,14 @@ public class OutboxPublisherServiceImpl implements OutboxPublisherService {
     private void send(Outbox outbox) {
         try {
             kafkaTemplate.send(outbox.getTopic(), outbox.getKey(), outbox.getEvent())
-                    .thenAccept(result -> {
-                        log.info("Outbox published {}: {}", outbox.getId(), result.getRecordMetadata());
-                        outbox.setStatus(OutboxStatus.SENT);
+                    .whenComplete((result, exception) -> {
+                        if (isNull(exception)) {
+                            log.info("Outbox published {}: {}", outbox.getId(), result.getRecordMetadata());
+                            outbox.setStatus(OutboxStatus.SENT);
+                        } else {
+                            log.error("Outbox failed to publish {}: {}", outbox.getId(), exception.getMessage());
+                            outbox.setStatus(OutboxStatus.FAILED);
+                        }
                     }).get();
         } catch (InterruptedException | ExecutionException e) {
             throw new IllegalStateException(e);

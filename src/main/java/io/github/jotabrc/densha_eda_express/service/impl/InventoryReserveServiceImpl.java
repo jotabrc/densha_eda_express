@@ -11,10 +11,9 @@ import io.github.jotabrc.densha_eda_express.service.OutboxPublisherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.Objects.nonNull;
 
 @RequiredArgsConstructor
 @Service
@@ -36,12 +35,18 @@ public class InventoryReserveServiceImpl implements InventoryReserveService {
             if (inventory.reserve(product.getQuantity())) {
                 inventories.add(inventory);
             } else {
-                throw new IllegalStateException("Not enough stock for product: %s".formatted(product.getId()));
+                inventories = null;
+                break;
             }
         }
 
-        outboxPublisherService.publish(() -> inventoryService.saveAll(inventories),
-                Map.of(OutboxKey.TOPIC, KafkaTopic.TOPIC_INVENTORY_RESERVED), order);
+        if (nonNull(inventories)) {
+            final Set<Inventory> inventoryList = inventories;
+            outboxPublisherService.publish(() -> inventoryService.saveAll(inventoryList),
+                    Map.of(OutboxKey.TOPIC, KafkaTopic.TOPIC_INVENTORY_RESERVED), order);
+        } else {
+            outboxPublisherService.publish(Map.of(OutboxKey.TOPIC, KafkaTopic.TOPIC_INVENTORY_FAILED), order);
+        }
     }
 
     @Override

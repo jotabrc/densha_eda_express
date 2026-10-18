@@ -30,7 +30,7 @@ public class Inventory extends BaseEntity {
     private BigDecimal stock;
 
     public boolean hasStock(BigDecimal required) {
-        return stock.add(reservedQuantity).add(required).compareTo(BigDecimal.ZERO) >= 0;
+        return stock.subtract(reservedQuantity).subtract(required).compareTo(BigDecimal.ZERO) >= 0;
     }
 
     public boolean reserve(BigDecimal quantity) {

@@ -12,6 +12,8 @@ public interface OutboxPublisherService {
 
     <T extends BaseEntity, S extends BaseEntity> Outbox publish(Callable<List<S>> saveEntity, Map<OutboxKey, Object> properties, T event);
 
+    <T extends BaseEntity> Outbox publish(Map<OutboxKey, Object> properties, T event);
+
     Outbox publish(Outbox outbox);
 
     List<Outbox> publish(List<Outbox> outboxes);

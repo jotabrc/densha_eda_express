@@ -34,4 +34,10 @@ public class PaymentServiceImpl implements PaymentService {
         return repository.findById(UUID.fromString(id.toString()))
                 .orElseThrow(() -> new IllegalStateException(Payment.class.getSimpleName() + " not found: %s".formatted(id)));
     }
+
+    @Override
+    public Payment findByOrderId(UUID orderId) {
+        return repository.findByOrderId(orderId)
+                .orElseThrow(() -> new IllegalStateException(Payment.class.getSimpleName() + " not found: %s".formatted(orderId)));
+    }
 }

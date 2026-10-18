@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_shipping")
+@Table(name = "tb_notification")
 public class Notification extends BaseEntity {
 
     @Column(nullable = false)

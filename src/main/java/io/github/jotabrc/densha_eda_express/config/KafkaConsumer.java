@@ -31,19 +31,19 @@ public class KafkaConsumer {
     @Value("${spring.kafka.consumer.properties.spring.json.trusted.packages}")
     private String trustedPackages;
 
-    @Value("$spring.kafka.consumer.group-id}")
+    @Value("${spring.kafka.consumer.group-id}")
     private String groupId;
 
-    @Value("$densha.kafka.consumer.backoff.initial-interval:2000}")
+    @Value("${densha.kafka.consumer.backoff.initial-interval:2000}")
     private Long initialInterval;
 
-    @Value("$densha.kafka.consumer.backoff.multiplier:2}")
+    @Value("${densha.kafka.consumer.backoff.multiplier:2}")
     private Long multiplier;
 
-    @Value("$densha.kafka.consumer.backoff.max-interval:10000}")
+    @Value("${densha.kafka.consumer.backoff.max-interval:10000}")
     private Long maxInterval;
 
-    @Value("$densha.kafka.consumer.backoff.max-attempts:3}")
+    @Value("${densha.kafka.consumer.backoff.max-attempts:3}")
     private Long maxAttempts;
 
     private final ExceptionsClassification exceptionsClassifications;

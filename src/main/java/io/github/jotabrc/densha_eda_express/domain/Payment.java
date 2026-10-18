@@ -1,8 +1,6 @@
 package io.github.jotabrc.densha_eda_express.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.*;
 
@@ -24,4 +22,10 @@ public class Payment extends BaseEntity {
 
     @Column(name = "order_id", nullable = false)
     private UUID orderId;
+
+    @Column(nullable = false)
+    private UUID details;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status;
 }
