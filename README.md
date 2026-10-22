@@ -36,8 +36,6 @@ Saves the domain entity and its corresponding event in the database within the s
 
 *Note: Alternatively, this pattern can be implemented without polling via Log-Based CDC using Debezium with Kafka Connect, or embedded within Spring via `debezium-embedded` (`SmartLifecycle`).*
 
-[Implementation specification](.docs/transactional_outbox_pattern.md)
-
 ---
 
 ## Saga Choreography
@@ -65,8 +63,6 @@ Executes a distributed transaction across multiple microservices where each serv
 
 *Note: For workflows with high complexity or many branching steps, **Saga Orchestration** can be used instead to centralize workflow state management.*
 
-[Implementation specification](.docs/saga_choreography.md)
-
 ---
 
 ## Command Query Responsibility Segregation (CQRS)
@@ -91,8 +87,6 @@ Separates write (Command) operations from read (Query) operations. In distribute
 
 *Note: CQRS can also be implemented at the code level within a single database by separating Write Models (Domain Entities/Aggregates) from Read Models (DTO Projections/Direct DB queries) without needing asynchronous event synchronization.*
 
-[Implementation specification](.docs/command_query_responsibility_segregation_cqrs_pattern.md)
-
 ---
 
 ## Non-Blocking Retry & Dead Letter Queue (DLQ)
@@ -113,8 +107,6 @@ Offloads failed events from the main topic to dedicated retry topics with expone
 2. The event is republished to a designated retry topic with a configured backoff delay.
 3. Main topic continues processing subsequent events without blocking.
 4. If retry attempts are exhausted, the event is moved to the DLQ topic (or a failure table) for manual inspection or deferred re-processing.
-
-[Implementation specification](.docs/non-blocking_retry_and_dead_letter_queue_dlq)
 
 
 ---
