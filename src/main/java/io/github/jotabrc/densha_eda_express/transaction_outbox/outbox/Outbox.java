@@ -3,7 +3,6 @@ package io.github.jotabrc.densha_eda_express.transaction_outbox.outbox;
 import io.github.jotabrc.densha_eda_express.domain.BaseEntity;
 import io.github.jotabrc.densha_eda_express.transaction_outbox.outbox.enums.OutboxStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 
 @Getter
@@ -30,13 +29,9 @@ public class Outbox extends BaseEntity {
     @Column(name = "event_fqcn", nullable = false)
     private String eventFqcn;
 
-    @Min(0)
-    @Builder.Default
+    @Column(nullable = false)
     private int retries = 0;
 
     @Column(name = "error_message")
     private String errorMessage;
-
-    @Transient
-    private Object entity;
 }
