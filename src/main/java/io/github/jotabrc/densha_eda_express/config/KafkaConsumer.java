@@ -85,7 +85,7 @@ public class KafkaConsumer {
                     if (attempt > maxAttempts) {
                         return new TopicPartition("app.cmd.send-to-dlq.0", consumerRecord.partition());
                     } else {
-                        return new TopicPartition(consumerRecord.topic() + "-retry", consumerRecord.partition());
+                        return new TopicPartition(consumerRecord.topic(), consumerRecord.partition());
                     }
                 }
         );
