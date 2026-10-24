@@ -1,5 +1,7 @@
-package io.github.jotabrc.densha_eda_express.domain;
+package io.github.jotabrc.densha_eda_express.transaction_outbox.outbox;
 
+import io.github.jotabrc.densha_eda_express.domain.BaseEntity;
+import io.github.jotabrc.densha_eda_express.transaction_outbox.outbox.enums.OutboxStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.*;

@@ -116,5 +116,3 @@ Offloads failed events from the main topic to dedicated retry topics with expone
 ![](.docs/images/densha__outbox_non-blocking-retry_dlq__workflow.png)
 
 ---
-
-Domain entities and objects will have oversimplified field members for the sake of simplicity, our focus is on the EDA patterns.
