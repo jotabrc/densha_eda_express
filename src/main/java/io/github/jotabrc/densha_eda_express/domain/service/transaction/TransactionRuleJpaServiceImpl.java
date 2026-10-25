@@ -1,9 +1,8 @@
-package io.github.jotabrc.densha_eda_express.domain.service;
+package io.github.jotabrc.densha_eda_express.domain.service.transaction;
 
 import io.github.jotabrc.densha_eda_express.domain.entity_database.TransactionRuleJpa;
 import io.github.jotabrc.densha_eda_express.domain.exception.RegisterNotFoundException;
 import io.github.jotabrc.densha_eda_express.domain.service.repositories.TransactionRuleRepository;
-import io.github.jotabrc.densha_eda_express.domain.service.transaction.TransactionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +22,8 @@ public class TransactionRuleJpaServiceImpl implements TransactionRuleJpaService 
     }
 
     @Override
-    public TransactionRuleJpa findByTypeOrElseThrow(TransactionType type) {
-        return repo.findByType(type).orElseThrow(() -> new RegisterNotFoundException(TransactionRuleJpa.class.getSimpleName(), type.toString()));
+    public TransactionRuleJpa findByTriggerTypeOrElseThrow(TransactionType type) {
+        return repo.findByTriggerType(type).orElseThrow(() -> new RegisterNotFoundException(TransactionRuleJpa.class.getSimpleName(), type.toString()));
     }
 
     @Override

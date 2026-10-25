@@ -13,7 +13,7 @@ public interface TransactionRuleRepository extends CrudRepository<UUID, Transact
 
     Optional<TransactionRuleJpa> findById(UUID id);
 
-    Optional<TransactionRuleJpa> findByType(TransactionType type);
+    Optional<TransactionRuleJpa> findByTriggerType(TransactionType type);
 
     Page<TransactionRuleJpa> findAll(Pageable pageable);
 }

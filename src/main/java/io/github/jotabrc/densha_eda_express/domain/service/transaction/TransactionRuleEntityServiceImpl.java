@@ -1,7 +1,6 @@
-package io.github.jotabrc.densha_eda_express.domain.service;
+package io.github.jotabrc.densha_eda_express.domain.service.transaction;
 
 import io.github.jotabrc.densha_eda_express.domain.entity.TransactionRuleEntity;
-import io.github.jotabrc.densha_eda_express.domain.service.transaction.TransactionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,8 +20,8 @@ public class TransactionRuleEntityServiceImpl implements TransactionRuleEntitySe
     }
 
     @Override
-    public TransactionRuleEntity findByTypeOrElseThrow(TransactionType type) {
-        return TransactionRuleEntity.fromJpa(transactionRuleJpaService.findByTypeOrElseThrow(type));
+    public TransactionRuleEntity findByTriggerTypeOrElseThrow(TransactionType type) {
+        return TransactionRuleEntity.fromJpa(transactionRuleJpaService.findByTriggerTypeOrElseThrow(type));
     }
 
     @Override

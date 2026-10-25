@@ -1,7 +1,7 @@
-package io.github.jotabrc.densha_eda_express.domain.service;
+package io.github.jotabrc.densha_eda_express.domain.service.transaction;
 
 import io.github.jotabrc.densha_eda_express.domain.entity.TransactionRuleEntity;
-import io.github.jotabrc.densha_eda_express.domain.service.transaction.TransactionType;
+import io.github.jotabrc.densha_eda_express.domain.service.BaseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,7 +11,7 @@ public interface TransactionRuleEntityService extends BaseService<UUID, Transact
 
     TransactionRuleEntity findByIdOrElseThrow(UUID id);
 
-    TransactionRuleEntity findByTypeOrElseThrow(TransactionType type);
+    TransactionRuleEntity findByTriggerTypeOrElseThrow(TransactionType type);
 
     Page<TransactionRuleEntity> findAll(Pageable pageable);
 }

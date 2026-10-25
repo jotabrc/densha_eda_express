@@ -2,15 +2,12 @@ package io.github.jotabrc.densha_eda_express.domain.entity_database;
 
 
 import io.github.jotabrc.densha_eda_express.domain.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -30,4 +27,8 @@ public class InventoryJpa extends BaseEntity {
 
     @Column(name = "product_id", nullable = false, unique = true)
     private UUID productId;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    private List<InventoryHistoryJpa> history = new ArrayList<>();
 }

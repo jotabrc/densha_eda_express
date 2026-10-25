@@ -1,8 +1,8 @@
 package io.github.jotabrc.densha_eda_express.domain.service.transaction;
 
-public interface TransactionRule<T, U, R> {
+public interface TransactionRule<T, U> {
 
-    R apply(T t, U u);
+    void apply(T t, U u);
 
     TransactionType type();
 }
