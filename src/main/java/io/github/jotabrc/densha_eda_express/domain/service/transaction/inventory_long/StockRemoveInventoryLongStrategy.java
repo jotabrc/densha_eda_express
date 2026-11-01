@@ -20,6 +20,6 @@ public class StockRemoveInventoryLongStrategy implements InventoryLongTransactio
 
     @Override
     public TransactionType type() {
-        return TransactionType.STOCK_REMOVE;
+        return TransactionType.STOCK_WITHDRAWAL;
     }
 }

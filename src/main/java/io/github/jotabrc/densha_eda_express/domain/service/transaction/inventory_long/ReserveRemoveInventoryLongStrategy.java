@@ -20,6 +20,6 @@ public class ReserveRemoveInventoryLongStrategy implements InventoryLongTransact
 
     @Override
     public TransactionType type() {
-        return TransactionType.RESERVE_REMOVE;
+        return TransactionType.REMOVE_RESERVATION;
     }
 }

@@ -20,6 +20,6 @@ public class ReserveAddInventoryLongStrategy implements InventoryLongTransaction
 
     @Override
     public TransactionType type() {
-        return TransactionType.RESERVE_ADD;
+        return TransactionType.MAKE_RESERVATION;
     }
 }

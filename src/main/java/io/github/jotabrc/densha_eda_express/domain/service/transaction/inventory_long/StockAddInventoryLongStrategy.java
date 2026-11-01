@@ -20,6 +20,6 @@ public class StockAddInventoryLongStrategy implements InventoryLongTransactionRu
 
     @Override
     public TransactionType type() {
-        return TransactionType.STOCK_ADD;
+        return TransactionType.ADD_STOCK;
     }
 }

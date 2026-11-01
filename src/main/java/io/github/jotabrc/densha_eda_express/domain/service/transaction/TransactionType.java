@@ -1,20 +1,18 @@
 package io.github.jotabrc.densha_eda_express.domain.service.transaction;
 
-import io.github.jotabrc.densha_eda_express.domain.entity.InventoryEntity;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.function.BiConsumer;
+import java.util.Collections;
+import java.util.List;
 
 @RequiredArgsConstructor
 public enum TransactionType {
-    RESERVE_ADD(InventoryEntity::reserve),
-    RESERVE_REMOVE(InventoryEntity::reserve),
-    STOCK_ADD(InventoryEntity::stock),
-    STOCK_REMOVE(InventoryEntity::stock);
+    MAKE_RESERVATION(Collections.emptyList()),
+    REMOVE_RESERVATION(Collections.emptyList()),
+    ADD_STOCK(Collections.emptyList()),
+    STOCK_WITHDRAWAL(List.of(REMOVE_RESERVATION));
 
-    private final BiConsumer<InventoryEntity, Long> operand;
-
-    public void execute(InventoryEntity inventory, Long quantity) {
-        this.operand.accept(inventory, quantity);
-    }
+    @Getter
+    private final List<TransactionType> types;
 }
