@@ -24,6 +24,10 @@ public class InventoryHistoryJpa extends BaseObject {
     @Column(name = "inventory_id", nullable = false)
     private InventoryJpa inventory;
 
+    @ManyToOne
+    @Column(name = "order_id", nullable = false)
+    private OrderJpa order;
+
     @Column(nullable = false)
     private Long stock;
 

@@ -2,6 +2,7 @@ package io.github.jotabrc.densha_eda_express.domain.entity;
 
 
 import io.github.jotabrc.densha_eda_express.domain.BaseObject;
+import io.github.jotabrc.densha_eda_express.domain.entity_database.InventoryHistoryJpa;
 import io.github.jotabrc.densha_eda_express.domain.service.transaction.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,21 @@ public class InventoryHistoryEntity extends BaseObject {
 
     private Long stock;
     private Long reserved;
-    private UUID productId;
+    private InventoryEntity inventory;
+    private UUID orderId;
     private TransactionType type;
+
+    public static InventoryHistoryEntity fromJpa(InventoryHistoryJpa jpa) {
+        return InventoryHistoryEntity.builder()
+                .stock(jpa.getStock())
+                .reserved(jpa.getReserved())
+                .inventory(InventoryEntity.fromJpa(jpa.getInventory()))
+                .orderId(jpa.getOrder().getId())
+                .type(jpa.getType())
+                .id(jpa.getId())
+                .createdDate(jpa.getCreatedDate())
+                .updatedDate(jpa.getUpdatedDate())
+                .version(jpa.getVersion())
+                .build();
+    }
 }

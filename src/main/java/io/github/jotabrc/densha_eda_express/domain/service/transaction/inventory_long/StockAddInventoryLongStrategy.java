@@ -6,6 +6,8 @@ import io.github.jotabrc.densha_eda_express.domain.service.transaction.inventory
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class StockAddInventoryLongStrategy implements InventoryLongTransactionRuleStrategy {
@@ -13,9 +15,9 @@ public class StockAddInventoryLongStrategy implements InventoryLongTransactionRu
     private final InventoryLongHistoryService inventoryLongHistoryService;
 
     @Override
-    public void apply(InventoryEntity inventory, Long quantity) {
+    public void apply(InventoryEntity inventory, Long quantity, UUID orderId) {
         inventory.stock(quantity);
-        inventoryLongHistoryService.apply(inventory, this.type());
+        inventoryLongHistoryService.apply(inventory, this.type(), orderId);
     }
 
     @Override

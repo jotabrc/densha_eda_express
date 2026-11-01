@@ -18,6 +18,6 @@ public class InventoryLongTransactionResolver {
     }
 
     public void execute(InventoryEntity inventory, Long quantity, TransactionType type) {
-        rules.get(type).apply(inventory, quantity);
+        rules.get(type).apply(inventory, quantity, );
     }
 }
